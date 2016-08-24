@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	This is an example modification file for SMF packages.
+
+	ATTENTION: If you are trying to install this manually, you should try
+	the package manager.  If it will not work for you, please take a look
+	at the following for information on this format:
+		http://mods.simplemachines.org/docs/manual-install.php
+
+================================================================================
+
+	Modification files can be used to modify files so that they do what
+	your package needs them to do to work properly.
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+
+	<id>digger:MemberlistRussianAlphabet</id>
+	<version>2.0</version>
+
+  <file name="$sourcedir/Memberlist.php">
+    <operation>
+		  <search position="after"><![CDATA[	// Sort out the column information.]]></search>
+		  <add><![CDATA[  // * Mod MemberlistAdditionalAlphabet
+  if (!empty($txt['additional_alphabet'])) {
+    $context['letter_links'] .= '<br />';
+	  foreach ($txt['additional_alphabet'] as $additional_alphabet_letter)
+	    $context['letter_links'] .= '<a href="' . $scripturl . '?action=mlist;sa=all;start=' . urlencode($additional_alphabet_letter) . '#letter' . urlencode($additional_alphabet_letter) . '">' . $additional_alphabet_letter . '</a> ';
+  }
+  // Mod MemberlistAdditionalAlphabet *
+
+]]></add>
+	  </operation>
+	</file>
+	
+	<file name="$themedir/css/index.css">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+
+/* Styles for MemberlistAdditionalAlphabet mod.
+------------------------------------------------------- */
+div#memberlist div.cat_bar h4.catbg span.floatright
+{
+    line-height: 14px;
+    padding: 2px;
+}
+]]></add>		
+		</operation>
+ 	</file>
+
+</modification>
